@@ -1,0 +1,25 @@
+name: sell_your_books
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.13.1
+
+dependencies:
+  bloc: ^9.2.1
+  data_table_2: ^3.0.0
+  dio: ^5.11.1
+  dotted_border: ^3.1.0
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^9.1.1
+  meta: ^1.19.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
