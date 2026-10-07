@@ -154,3 +154,6 @@ ios/
 linux/
 macos/
 windows/
+
+.idea/
+*.iml
