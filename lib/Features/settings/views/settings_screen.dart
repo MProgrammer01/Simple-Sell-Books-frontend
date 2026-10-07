@@ -55,6 +55,8 @@ class _SettingsScreenState extends State<SettingsScreen>
     if (!_formKey.currentState!.validate()) {
       return;
     }
+    ScaffoldMessenger.of(context)
+        .showSnackBar(const SnackBar(content: Text('Updating profile...')));
     final updateSeller = ClsSettingsDto.updateSeller(
       personID: ClsStorage.personID ?? 0,
       storeName: _storeNameController.text.trim(),
@@ -68,6 +70,9 @@ class _SettingsScreenState extends State<SettingsScreen>
   }
 
   void _handleUpdatePassword() {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
     ScaffoldMessenger.of(context)
         .showSnackBar(const SnackBar(content: Text('Updating password...')));
 
@@ -347,7 +352,7 @@ class _SettingsScreenState extends State<SettingsScreen>
     if (selected) {
       textColor = activeColor;
     } else if (isDanger) {
-      textColor = activeColor.withOpacity(0.85);
+      textColor = activeColor.withValues(alpha: 0.85);
     } else {
       textColor = ColorsApp.onSurfaceVariant;
     }
@@ -360,7 +365,7 @@ class _SettingsScreenState extends State<SettingsScreen>
         onTap: onTap,
         child: Container(
           color: hovering && !selected
-              ? ColorsApp.surfaceContainerHigh.withOpacity(0.5)
+              ? ColorsApp.surfaceContainerHigh.withValues(alpha: 0.5)
               : Colors.transparent,
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
           child: Column(
@@ -708,10 +713,10 @@ class _SettingsScreenState extends State<SettingsScreen>
       padding: const EdgeInsets.all(28),
       decoration: BoxDecoration(
         color: Color.alphaBlend(
-          ColorsApp.error.withOpacity(0.05),
+          ColorsApp.error.withValues(alpha: 0.05),
           ColorsApp.surfaceContainerLowest,
         ),
-        border: Border.all(color: ColorsApp.error.withOpacity(0.3)),
+        border: Border.all(color: ColorsApp.error.withValues(alpha: 0.3)),
         borderRadius: BorderRadius.circular(12),
       ),
       child: LayoutBuilder(

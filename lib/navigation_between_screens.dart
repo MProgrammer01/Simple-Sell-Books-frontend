@@ -19,9 +19,9 @@ class ClsNavigationBetweenScreens {
         return MaterialPageRoute(builder: (_) => MainDashboardScreen());
 
       case ClsStingsApp.addOrEditBookScreen:
-        final bookId = settings.arguments as int;
+        final bookId = settings.arguments as int?;
         return MaterialPageRoute(
-          builder: (_) => AddOrEditBookScreen(bookID: bookId),
+          builder: (_) => AddOrEditBookScreen(bookID: bookId ?? 0),
         );
 
       case ClsStingsApp.showBookDetailsScreen:

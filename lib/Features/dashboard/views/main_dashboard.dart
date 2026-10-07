@@ -18,7 +18,6 @@ class _MainDashboardScreenState extends State<MainDashboardScreen> {
   final ValueNotifier<int> _selectedIndexNotifier = ValueNotifier(0);
 
   final _pages = const [
-    // OverviewScreen(),
     ManageBooksScreen(),
     SettingsScreen(),
   ];

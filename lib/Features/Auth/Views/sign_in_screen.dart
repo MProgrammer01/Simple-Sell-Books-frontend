@@ -111,7 +111,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       border: Border.all(color: ColorsApp.outlineVariant),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.05),
+                          color: Colors.black.withValues(alpha: 0.05),
                           blurRadius: 6,
                           offset: const Offset(0, 2),
                         ),
@@ -141,7 +141,7 @@ class _SignInScreenState extends State<SignInScreen> {
       padding: const EdgeInsets.fromLTRB(32, 32, 32, 24),
       decoration: BoxDecoration(
         border: Border(
-          bottom: BorderSide(color: ColorsApp.outlineVariant.withOpacity(0.3)),
+          bottom: BorderSide(color: ColorsApp.outlineVariant.withValues(alpha: 0.3)),
         ),
       ),
       child: Column(
@@ -339,7 +339,7 @@ class _SignInScreenState extends State<SignInScreen> {
       decoration: BoxDecoration(
         color: ColorsApp.surfaceContainerLow,
         border: Border(
-          top: BorderSide(color: ColorsApp.outlineVariant.withOpacity(0.3)),
+          top: BorderSide(color: ColorsApp.outlineVariant.withValues(alpha: 0.3)),
         ),
       ),
       child: Center(

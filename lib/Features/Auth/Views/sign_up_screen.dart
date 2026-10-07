@@ -111,7 +111,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       borderRadius: BorderRadius.circular(8),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.05),
+                          color: Colors.black.withValues(alpha: 0.05),
                           blurRadius: 6,
                           offset: const Offset(0, 2),
                         ),
@@ -339,7 +339,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       decoration: BoxDecoration(
         color: ColorsApp.surfaceContainerLow,
         border: Border(
-          top: BorderSide(color: ColorsApp.outlineVariant.withOpacity(0.3)),
+          top: BorderSide(color: ColorsApp.outlineVariant.withValues(alpha: 0.3)),
         ),
       ),
       child: Center(
