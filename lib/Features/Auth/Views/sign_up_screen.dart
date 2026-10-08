@@ -278,7 +278,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 hintText: '••••••••',
                 obscureText: _obscureConfermPassword,
                 suffixIcon: ObscureToggleWidget(
-                  obscured: _obscurePassword,
+                  obscured: _obscureConfermPassword,
                   onTap: () => setState(
                     () => _obscureConfermPassword = !_obscureConfermPassword,
                   ),

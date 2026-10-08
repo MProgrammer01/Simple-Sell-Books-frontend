@@ -100,7 +100,6 @@ class _ShowBookDetailsScreenState extends State<ShowBookDetailsScreen> {
                           ),
                         ),
                       );
-                      Navigator.pop(context, true);
                     } else if (state is BadRequest) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
