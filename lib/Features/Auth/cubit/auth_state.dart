@@ -48,3 +48,21 @@ class SignUpFailure extends AuthState {
 
   SignUpFailure(this.statusCode);
 }
+
+// =========================
+// Logout States
+// =========================
+class LogoutSuccess extends AuthState {}
+
+class LogoutFailure extends AuthState {
+  final int statusCode;
+
+  LogoutFailure(this.statusCode);
+}
+
+class LogoutTooManyRequests extends AuthState {}
+
+class LogoutInternalServerError extends AuthState {}
+
+class LogoutBadRequest extends AuthState {}
+

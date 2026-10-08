@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sell_your_books/Core/Values/colors.dart';
 import 'package:sell_your_books/Core/Values/strings.dart';
+import 'package:sell_your_books/Features/Auth/cubit/auth_cubit.dart';
 import 'package:sell_your_books/Features/books/views/manage_books_screen.dart';
 import 'package:sell_your_books/Features/global/data/storage.dart';
 import 'package:sell_your_books/Features/settings/cubit/settings_cubit.dart';
@@ -17,10 +18,7 @@ class MainDashboardScreen extends StatefulWidget {
 class _MainDashboardScreenState extends State<MainDashboardScreen> {
   final ValueNotifier<int> _selectedIndexNotifier = ValueNotifier(0);
 
-  final _pages = const [
-    ManageBooksScreen(),
-    SettingsScreen(),
-  ];
+  final _pages = const [ManageBooksScreen(), SettingsScreen()];
 
   void _onSelect(int index) {
     _selectedIndexNotifier.value = index;
@@ -127,12 +125,6 @@ class _SideNavBar extends StatelessWidget {
               builder: (context, value, child) {
                 return ListView(
                   children: [
-                    // _NavItem(
-                    //   icon: Icons.dashboard,
-                    //   label: 'Dashboard',
-                    //   selected: value == 0,
-                    //   onTap: () => _onSelect(0),
-                    // ),
                     _NavItem(
                       icon: Icons.menu_book_outlined,
                       label: 'Books',
@@ -150,15 +142,51 @@ class _SideNavBar extends StatelessWidget {
               },
             ),
           ),
-          _NavItem(
-            icon: Icons.logout,
-            label: 'Logout',
-            onTap: () => {
-              ClsStorage.clearData(),
-              Navigator.pushReplacementNamed(
-                context,
-                ClsStingsApp.signInScreen,
-              ),
+          BlocConsumer<AuthCubit, AuthState>(
+            listener: (context, state) {
+              if (state is LogoutSuccess) {
+                ClsStorage.clearData();
+                Navigator.pushReplacementNamed(
+                  context,
+                  ClsStingsApp.signInScreen,
+                );
+              } else if (state is LogoutFailure) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      'Logout failed with status code: ${state.statusCode}',
+                    ),
+                  ),
+                );
+              } else if (state is LogoutTooManyRequests) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Too many requests. Please try again later.'),
+                  ),
+                );
+              } else if (state is LogoutInternalServerError) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Internal server error. Please try again.'),
+                  ),
+                );
+              } else if (state is LogoutBadRequest) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Not accepted data.')),
+                );
+              }
+            },
+            builder: (context, state) {
+              final isLoading = state is AuthLoading;
+              return _NavItem(
+                icon: isLoading ? Icons.hourglass_empty : Icons.logout,
+                label: isLoading ? 'Logging out...' : 'Logout',
+                onTap: isLoading
+                    ? null
+                    : () {
+                        context.read<AuthCubit>().logout();
+                      },
+              );
             },
           ),
         ],
@@ -171,13 +199,13 @@ class _NavItem extends StatelessWidget {
   final IconData icon;
   final String label;
   final bool selected;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   const _NavItem({
     required this.icon,
     required this.label,
     this.selected = false,
-    required this.onTap,
+    this.onTap,
   });
 
   @override

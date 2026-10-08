@@ -13,4 +13,8 @@ class ClsAuthBusiness {
   static Future<int> signUpSeller(ClsSignUPSellerDTO signUpDTO) async {
     return await ClsAuthData.signUpSeller(signUpDTO);
   }
+
+  static Future<int> logout() async {
+    return await ClsAuthData.logout();
+  }
 }

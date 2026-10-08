@@ -34,4 +34,15 @@ class ClsAuthData {
       return e.response?.statusCode ?? 0;
     }
   }
+
+  static Future<int> logout() async {
+    try {
+      final Response response = await ClsConnectionToAPI.accessDio.post(
+        'Auth/Logout',
+      );
+      return response.statusCode ?? 0;
+    } on DioException catch (e) {
+      return e.response?.statusCode ?? 0;
+    }
+  }
 }

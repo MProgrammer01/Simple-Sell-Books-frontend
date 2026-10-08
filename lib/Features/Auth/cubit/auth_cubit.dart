@@ -73,4 +73,34 @@ class AuthCubit extends Cubit<AuthState> {
         emit(SignUpFailure(result));
     }
   }
+
+  // =========================
+  // Logout Seller
+  // =========================
+  Future<void> logout() async {
+    emit(AuthLoading());
+
+    final result = await ClsAuthBusiness.logout();
+
+    switch (result) {
+      case 200:
+        emit(LogoutSuccess());
+        break;
+
+      case 400:
+        emit(LogoutBadRequest());
+        break;
+
+      case 429:
+        emit(LogoutTooManyRequests());
+        break;
+      
+      case 500:
+        emit(LogoutInternalServerError());
+        break;
+
+      default:
+        emit(LogoutFailure(result));
+    }
+  }
 }

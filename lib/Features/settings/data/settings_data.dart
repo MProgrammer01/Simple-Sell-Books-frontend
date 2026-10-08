@@ -4,8 +4,9 @@ import 'package:sell_your_books/Features/global/data/responce_api_with_status_co
 import 'package:sell_your_books/Features/settings/data/settings_dto.dart';
 
 class ClsSettingsData {
-
-  static Future<ClsApiResponse<ClsSettingsDto>> getSellerByPersonID({required int personID}) async {
+  static Future<ClsApiResponse<ClsSettingsDto>> getSellerByPersonID({
+    required int personID,
+  }) async {
     try {
       final Response response = await ClsConnectionToAPI.accessDio.get(
         'Sellers/FindSellerByPersonID',
@@ -21,7 +22,9 @@ class ClsSettingsData {
     }
   }
 
-  static Future<int> updateSeller({required ClsSettingsDto updateSellerDTO}) async {
+  static Future<int> updateSeller({
+    required ClsSettingsDto updateSellerDTO,
+  }) async {
     try {
       final Response response = await ClsConnectionToAPI.accessDio.put(
         'Sellers/UpdateSellerByID',
@@ -33,12 +36,14 @@ class ClsSettingsData {
       return e.response?.statusCode ?? 0;
     }
   }
-  
-  static Future<int> changePassword({required ClsChangePasswordDTO changePasswordDTO}) async {
+
+  static Future<int> changePassword({
+    required ClsChangePasswordDTO changePasswordDTO,
+  }) async {
     try {
       final Response response = await ClsConnectionToAPI.accessDio.put(
         'People/UpdatePasswordByPersonID',
-          data: changePasswordDTO.toMap(),
+        data: changePasswordDTO.toMap(),
       );
       return response.statusCode ?? 0;
     } on DioException catch (e) {
@@ -46,8 +51,7 @@ class ClsSettingsData {
     }
   }
 
-
-static Future<int> deleteSellerByPersonID({required int personID}) async {
+  static Future<int> deleteSellerByPersonID({required int personID}) async {
     try {
       final Response response = await ClsConnectionToAPI.accessDio.delete(
         'People/DeletePerson',
@@ -58,5 +62,4 @@ static Future<int> deleteSellerByPersonID({required int personID}) async {
       return e.response?.statusCode ?? 0;
     }
   }
-
 }
